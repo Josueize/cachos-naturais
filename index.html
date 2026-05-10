@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cachos Naturais — Salão de Beleza Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A84C; --gold-light: #E8C97A; --gold-pale: #F5E6C0;
+    --black: #0A0A0A; --black-soft: #141414; --black-mid: #1E1E1E;
+    --white: #FAF7F0; --text-muted: #999;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 14px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(10,10,10,0.92);
+    border-bottom: 0.5px solid rgba(201,168,76,0.25);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: transparent; border: 0.5px solid var(--gold); color: var(--gold); padding: 0.5rem 1.4rem; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--black); }
+  .hero-bg-lines { position: absolute; inset: 0; pointer-events: none; background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px), repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px); }
+  .hero-accent { position: absolute; top: 10%; right: 8%; width: 300px; height: 300px; border-radius: 50%; border: 0.5px solid rgba(201,168,76,0.12); }
+  .hero-accent2 { position: absolute; bottom: 15%; left: 5%; width: 180px; height: 180px; border-radius: 50%; border: 0.5px solid rgba(201,168,76,0.08); }
+  .hero-content { text-align: center; position: relative; z-index: 2; padding: 2rem; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 300; line-height: 0.95; color: var(--white); }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); margin: 1.5rem 0 2.5rem; }
+  .hero-divider { width: 60px; height: 0.5px; background: var(--gold); margin: 1rem auto; }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--black); padding: 0.9rem 2.2rem; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-outline { background: transparent; color: var(--white); padding: 0.9rem 2.2rem; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; border: 0.5px solid rgba(250,247,240,0.3); cursor: pointer; transition: all 0.3s; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  section { padding: 6rem 3rem; }
+  .section-label { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; color: var(--white); margin-bottom: 1rem; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .gold-line { width: 50px; height: 0.5px; background: var(--gold); margin-bottom: 2.5rem; }
+
+  #about { background: var(--black-soft); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1000px; margin: 0 auto; }
+  .about-text p { color: var(--text-muted); font-size: 13px; line-height: 2; margin-bottom: 1rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .stat-card { border: 0.5px solid rgba(201,168,76,0.2); padding: 1.5rem; text-align: center; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--gold); font-weight: 300; }
+  .stat-lbl { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.3rem; }
+
+  #services { background: var(--black); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5px; max-width: 1000px; margin: 0 auto; }
+  .service-card { background: var(--black-soft); padding: 2.5rem 2rem; border: 0.5px solid rgba(201,168,76,0.08); transition: border-color 0.3s, background 0.3s; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { border-color: rgba(201,168,76,0.25); background: var(--black-mid); }
+  .service-icon { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); margin-bottom: 1rem; font-style: italic; }
+  .service-name { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); margin-bottom: 0.5rem; font-weight: 500; }
+  .service-desc { font-size: 12px; color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; }
+  .service-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); }
+
+  /* INSTAGRAM */
+  #instagram { background: var(--black-mid); }
+  .insta-handle { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 0.8rem; margin-bottom: 2rem; color: var(--gold); font-size: 13px; letter-spacing: 0.1em; text-decoration: none; border: 0.5px solid rgba(201,168,76,0.3); padding: 0.5rem 1.2rem; transition: all 0.3s; }
+  .insta-handle:hover { background: rgba(201,168,76,0.08); }
+  .insta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; max-width: 700px; margin: 0 auto 2rem; }
+  .insta-tile { aspect-ratio: 1; background: var(--black-soft); border: 0.5px solid rgba(201,168,76,0.1); overflow: hidden; position: relative; cursor: pointer; transition: opacity 0.3s; text-decoration: none; display: block; }
+  .insta-tile:hover { opacity: 0.75; }
+  .insta-tile-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+  .insta-follow-btn { display: inline-flex; align-items: center; gap: 0.7rem; background: transparent; border: 0.5px solid var(--gold); color: var(--gold); padding: 0.8rem 2rem; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.3s; }
+  .insta-follow-btn:hover { background: var(--gold); color: var(--black); }
+
+  /* BOOKING */
+  #booking { background: var(--black-soft); }
+  .booking-inner { max-width: 640px; margin: 0 auto; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0; }
+  .form-group label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .form-group input, .form-group select, .form-group textarea { background: rgba(201,168,76,0.04); border: 0.5px solid rgba(201,168,76,0.2); color: var(--white); padding: 0.8rem 1rem; font-family: 'Montserrat', sans-serif; font-size: 13px; outline: none; transition: border-color 0.3s; -webkit-appearance: none; }
+  .form-group select option { background: var(--black-mid); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  /* PAYMENT TOGGLE */
+  .payment-toggle-wrap { margin-top: 2rem; }
+  .payment-toggle-header { display: flex; align-items: center; justify-content: space-between; border: 0.5px solid rgba(201,168,76,0.2); padding: 1.2rem 1.4rem; cursor: pointer; transition: border-color 0.3s, background 0.3s; user-select: none; }
+  .payment-toggle-header:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.03); }
+  .payment-toggle-left { display: flex; align-items: center; gap: 0.8rem; }
+  .payment-toggle-left svg { color: var(--gold); flex-shrink: 0; }
+  .payment-toggle-title { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); }
+  .payment-toggle-sub { font-size: 11px; color: var(--text-muted); margin-top: 0.2rem; }
+  .payment-badge { background: rgba(201,168,76,0.1); border: 0.5px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.6rem; }
+  .toggle-arrow { color: var(--gold); font-size: 18px; transition: transform 0.3s; }
+  .toggle-arrow.open { transform: rotate(180deg); }
+  .payment-panel { max-height: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease; opacity: 0; border: 0.5px solid rgba(201,168,76,0.1); border-top: none; }
+  .payment-panel.open { max-height: 600px; opacity: 1; }
+  .payment-panel-inner { padding: 1.5rem; }
+  .amount-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1.2rem; }
+  .amount-btn { border: 0.5px solid rgba(201,168,76,0.2); background: transparent; color: var(--text-muted); padding: 0.7rem; font-family: 'Montserrat', sans-serif; font-size: 12px; cursor: pointer; transition: all 0.3s; text-align: center; }
+  .amount-btn:hover, .amount-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+  .amount-btn .amount-label { display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: inherit; margin-bottom: 0.2rem; }
+  .amount-btn .amount-value { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
+  .stripe-mock-form { background: rgba(201,168,76,0.03); border: 0.5px solid rgba(201,168,76,0.12); padding: 1.2rem; }
+  .stripe-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+  .stripe-label-text { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .stripe-powered { margin-left: auto; font-size: 10px; color: rgba(153,153,153,0.5); letter-spacing: 0.05em; }
+  .stripe-powered span { color: #635bff; }
+  .card-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem; }
+  .card-field { display: flex; flex-direction: column; gap: 0.3rem; }
+  .card-field label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .card-field input { background: rgba(201,168,76,0.04); border: 0.5px solid rgba(201,168,76,0.15); color: var(--white); padding: 0.65rem 0.8rem; font-family: 'Montserrat', sans-serif; font-size: 12px; outline: none; transition: border-color 0.3s; }
+  .card-field input:focus { border-color: var(--gold); }
+  .card-icons { display: flex; gap: 0.4rem; margin-bottom: 0.8rem; }
+  .card-icon { width: 32px; height: 20px; background: var(--black-mid); border: 0.5px solid rgba(201,168,76,0.1); display: flex; align-items: center; justify-content: center; font-size: 8px; color: var(--text-muted); border-radius: 2px; }
+  .pay-note { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 0.8rem; line-height: 1.7; }
+  .booking-actions { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.8rem; }
+  .form-submit-main { width: 100%; background: var(--gold); color: var(--black); padding: 1rem; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s; }
+  .form-submit-main:hover { background: var(--gold-light); }
+  .booking-note { text-align: center; font-size: 11px; color: var(--text-muted); }
+  .success-msg { display: none; text-align: center; padding: 2rem; border: 0.5px solid rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); }
+  .success-msg.show { display: block; }
+  .success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .success-msg h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 0.5rem; font-weight: 300; }
+  .success-msg p { color: var(--text-muted); font-size: 12px; line-height: 1.8; }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--black); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+  .testimonial { border: 0.5px solid rgba(201,168,76,0.15); padding: 2rem; }
+  .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--gold); line-height: 0.5; margin-bottom: 1rem; opacity: 0.5; }
+  .testimonial p { font-size: 13px; color: var(--text-muted); line-height: 1.9; margin-bottom: 1.5rem; font-style: italic; }
+  .testimonial-author { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+  .stars { color: var(--gold); font-size: 12px; margin-bottom: 0.8rem; letter-spacing: 2px; }
+
+  /* FOOTER */
+  footer { background: var(--black-soft); border-top: 0.5px solid rgba(201,168,76,0.15); padding: 3rem; text-align: center; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-tagline { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2rem; }
+  .footer-social { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .footer-social a { width: 36px; height: 36px; border: 0.5px solid rgba(201,168,76,0.25); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; transition: all 0.3s; }
+  .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 11px; color: rgba(153,153,153,0.4); }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; display: flex; align-items: center; gap: 0.7rem; background: #25D366; color: #fff; padding: 0.85rem 1.4rem; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.35); transition: all 0.3s; }
+  .whatsapp-float:hover { background: #1ebe5d; transform: translateY(-2px); }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.2rem; } .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .card-field-row { grid-template-columns: 1fr; }
+    .whatsapp-float span { display: none; } .whatsapp-float { padding: 0.85rem; border-radius: 50%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Cachos Naturais</div>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre</a></li>
+    <li><a href="#services">Serviços</a></li>
+    <li><a href="#instagram">Instagram</a></li>
+    <li><a href="#testimonials">Depoimentos</a></li>
+    <li><a href="#booking">Agendar</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Agendar</button>
+</nav>
+
+<!-- WHATSAPP FLOAT BUTTON -->
+<a class="whatsapp-float" href="https://wa.me/5511960747406?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20no%20Cachos%20Naturais." target="_blank">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span>Fale pelo WhatsApp</span>
+</a>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-accent2"></div>
+  <div class="hero-content fade-in visible">
+    <p class="hero-eyebrow">Salão de Beleza Premium — Mônica Santos</p>
+    <h1 class="hero-title">Cachos<br><em>Naturais</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">A arte de realçar sua beleza única</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="https://wa.me/5511960747406?text=Olá!%20Gostaria%20de%20agendar%20um%20horário." target="_blank">Agendar via WhatsApp</a>
+      <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Ver Serviços</button>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p class="section-label">Sobre nós</p>
+      <h2 class="section-title">Beleza com <em>propósito</em></h2>
+      <div class="gold-line"></div>
+      <p>No Cachos Naturais, acreditamos que cada fio conta uma história. Especialistas em cabelos cacheados, ondulados e crespos, oferecemos tratamentos personalizados que respeitam e celebram a textura natural dos seus cabelos.</p>
+      <p>Nosso ambiente sofisticado e acolhedor foi criado para que você se sinta única e poderosa a cada visita.</p>
+    </div>
+    <div class="about-stats fade-in">
+      <div class="stat-card"><div class="stat-num">8+</div><div class="stat-lbl">Anos de experiência</div></div>
+      <div class="stat-card"><div class="stat-num">2k</div><div class="stat-lbl">Clientes felizes</div></div>
+      <div class="stat-card"><div class="stat-num">15</div><div class="stat-lbl">Especialistas</div></div>
+      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Produtos naturais</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="text-align:center; margin-bottom: 3rem;" class="fade-in">
+    <p class="section-label">O que oferecemos</p>
+    <h2 class="section-title">Nossos <em>Serviços</em></h2>
+    <div class="gold-line" style="margin: 0 auto;"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Corte Especializado</div><div class="service-desc">Corte personalizado para realçar o volume e formato dos seus cachos.</div><div class="service-price">R$ 120</div></div>
+    <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Hidratação Profunda</div><div class="service-desc">Tratamento intensivo com produtos naturais para restaurar o brilho e maciez.</div><div class="service-price">R$ 180</div></div>
+    <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Coloração</div><div class="service-desc">Coloração sofisticada com técnicas que preservam a saúde dos fios.</div><div class="service-price">A partir de R$ 250</div></div>
+    <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Cronograma Capilar</div><div class="service-desc">Programa completo de nutrição, hidratação e reconstrução para seus cabelos.</div><div class="service-price">R$ 220</div></div>
+    <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Penteados</div><div class="service-desc">Penteados elegantes para eventos especiais, do casual ao sofisticado.</div><div class="service-price">A partir de R$ 150</div></div>
+    <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Alisamento Natural</div><div class="service-desc">Técnicas que definem e suavizam sem agredir a estrutura capilar.</div><div class="service-price">A partir de R$ 300</div></div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section id="instagram">
+  <div style="text-align:center;" class="fade-in">
+    <p class="section-label">Nos siga</p>
+    <h2 class="section-title">Nossa <em>galeria</em></h2>
+    <div class="gold-line" style="margin: 0 auto 1rem;"></div>
+    <a class="insta-handle" href="https://www.instagram.com/monicasantoscachos" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      @monicasantoscachos
+    </a>
+  </div>
+  <div class="insta-grid fade-in">
+    <a class="insta-tile" href="https://www.instagram.com/p/DW4j7LYlWM9/" target="_blank"><div class="insta-tile-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><span style="font-size:9px;color:rgba(201,168,76,0.4);letter-spacing:.1em">ver post</span></div></a>
+    <a class="insta-tile" href="https://www.instagram.com/monicasantoscachos" target="_blank"><div class="insta-tile-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><span style="font-size:9px;color:rgba(201,168,76,0.4);letter-spacing:.1em">ver perfil</span></div></a>
+    <a class="insta-tile" href="https://www.instagram.com/monicasantoscachos" target="_blank"><div class="insta-tile-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><span style="font-size:9px;color:rgba(201,168,76,0.4);letter-spacing:.1em">ver perfil</span></div></a>
+    <a class="insta-tile" href="https://www.instagram.com/monicasantoscachos" target="_blank"><div class="insta-tile-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><span style="font-size:9px;color:rgba(201,168,76,0.4);letter-spacing:.1em">ver perfil</span></div></a>
+    <a class="insta-tile" href="https://www.instagram.com/monicasantoscachos" target="_blank"><div class="insta-tile-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><span style="font-size:9px;color:rgba(201,168,76,0.4);letter-spacing:.1em">ver perfil</span></div></a>
+    <a class="insta-tile" href="https://www.instagram.com/monicasantoscachos" target="_blank"><div class="insta-tile-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="rgba(201,168,76,0.3)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><span style="font-size:9px;color:rgba(201,168,76,0.4);letter-spacing:.1em">ver perfil</span></div></a>
+  </div>
+  <div style="text-align:center;" class="fade-in">
+    <a class="insta-follow-btn" href="https://www.instagram.com/monicasantoscachos" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Seguir @monicasantoscachos
+    </a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div style="text-align:center; margin-bottom: 3rem;" class="fade-in">
+    <p class="section-label">O que dizem</p>
+    <h2 class="section-title">Depoimentos de <em>clientes</em></h2>
+    <div class="gold-line" style="margin: 0 auto;"></div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial fade-in"><div class="quote-mark">"</div><div class="stars">★★★★★</div><p>Finalmente encontrei um salão que entende meus cachos! O resultado foi incrível, nunca me senti tão confiante com meu cabelo.</p><div class="testimonial-author">— Ana Rodrigues</div></div>
+    <div class="testimonial fade-in"><div class="quote-mark">"</div><div class="stars">★★★★★</div><p>Atendimento impecável, ambiente lindo e o resultado superou todas as expectativas. Meu cabelo está radiante!</p><div class="testimonial-author">— Carla Mendes</div></div>
+    <div class="testimonial fade-in"><div class="quote-mark">"</div><div class="stars">★★★★★</div><p>A equipe é altamente especializada. Eles cuidaram dos meus cachos com tanto carinho e profissionalismo. Recomendo demais!</p><div class="testimonial-author">— Beatriz Souza</div></div>
+  </div>
+</section>
+
+<!-- BOOKING + OPTIONAL STRIPE PAYMENT -->
+<section id="booking">
+  <div class="booking-inner">
+    <div style="text-align:center; margin-bottom: 3rem;" class="fade-in">
+      <p class="section-label">Agende seu horário</p>
+      <h2 class="section-title">Reserve sua <em>visita</em></h2>
+      <div class="gold-line" style="margin: 0 auto;"></div>
+    </div>
+
+    <div id="booking-form" class="fade-in">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" id="f-name" placeholder="Seu nome" />
+        </div>
+        <div class="form-group">
+          <label>Telefone / WhatsApp</label>
+          <input type="tel" id="f-phone" placeholder="(11) 99999-9999" />
+        </div>
+      </div>
+      <div class="form-row" style="margin-bottom:1rem;">
+        <div class="form-group">
+          <label>Serviço desejado</label>
+          <select id="f-service">
+            <option value="">Selecione...</option>
+            <option>Corte Especializado — R$ 120</option>
+            <option>Hidratação Profunda — R$ 180</option>
+            <option>Coloração — R$ 250+</option>
+            <option>Cronograma Capilar — R$ 220</option>
+            <option>Penteados — R$ 150+</option>
+            <option>Alisamento Natural — R$ 300+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Data preferida</label>
+          <input type="date" id="f-date" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Observações</label>
+        <textarea id="f-notes" placeholder="Conte-nos mais sobre seus cabelos ou preferências..."></textarea>
+      </div>
+
+      <!-- OPTIONAL PAYMENT TOGGLE -->
+      <div class="payment-toggle-wrap">
+        <div class="payment-toggle-header" onclick="togglePayment()">
+          <div class="payment-toggle-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+            <div>
+              <div class="payment-toggle-title">Pagar depósito antecipado</div>
+              <div class="payment-toggle-sub">Garanta seu horário com um pagamento seguro via Stripe</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <span class="payment-badge">Opcional</span>
+            <span class="toggle-arrow" id="toggle-arrow">▾</span>
+          </div>
+        </div>
+
+        <div class="payment-panel" id="payment-panel">
+          <div class="payment-panel-inner">
+            <p style="font-size:11px;color:var(--text-muted);margin-bottom:1.2rem;line-height:1.8;">
+              O agendamento é confirmado <strong style="color:var(--white)">com ou sem pagamento</strong>. O depósito é opcional e será descontado do valor total no dia do atendimento.
+            </p>
+            <div class="amount-options">
+              <button class="amount-btn active" onclick="selectAmount(this, 50)">
+                <span class="amount-label">Básico</span>
+                <span class="amount-value">R$50</span>
+              </button>
+              <button class="amount-btn" onclick="selectAmount(this, 100)">
+                <span class="amount-label">Padrão</span>
+                <span class="amount-value">R$100</span>
+              </button>
+              <button class="amount-btn" onclick="selectAmount(this, 150)">
+                <span class="amount-label">Completo</span>
+                <span class="amount-value">R$150</span>
+              </button>
+            </div>
+
+            <!-- 
+              ==========================================
+              STRIPE INTEGRATION INSTRUCTIONS
+              ==========================================
+              To activate real payments:
+              1. Create a Stripe account at https://stripe.com/br
+              2. Get your Publishable Key from Stripe Dashboard
+              3. Replace 'YOUR_STRIPE_PUBLISHABLE_KEY' below
+              4. Create a backend endpoint to handle Payment Intents
+              5. Replace the mock form below with Stripe Elements
+
+              Example backend (Node.js):
+              app.post('/create-payment-intent', async (req, res) => {
+                const paymentIntent = await stripe.paymentIntents.create({
+                  amount: req.body.amount * 100, // in centavos
+                  currency: 'brl',
+                });
+                res.json({ clientSecret: paymentIntent.client_secret });
+              });
+              ==========================================
+            -->
+
+            <div class="stripe-mock-form">
+              <div class="stripe-header">
+                <span>🔒</span>
+                <span class="stripe-label-text">Pagamento seguro</span>
+                <span class="stripe-powered">Powered by <span>stripe</span></span>
+              </div>
+              <div class="card-icons">
+                <div class="card-icon">VISA</div>
+                <div class="card-icon">MC</div>
+                <div class="card-icon">PIX</div>
+              </div>
+              <div style="margin-bottom:0.8rem;">
+                <div class="card-field">
+                  <label>Número do cartão</label>
+                  <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" />
+                </div>
+              </div>
+              <div class="card-field-row">
+                <div class="card-field">
+                  <label>Validade</label>
+                  <input type="text" placeholder="MM / AA" maxlength="7" oninput="formatExpiry(this)" />
+                </div>
+                <div class="card-field">
+                  <label>CVV</label>
+                  <input type="text" placeholder="•••" maxlength="3" />
+                </div>
+              </div>
+              <div class="card-field">
+                <label>Nome no cartão</label>
+                <input type="text" placeholder="Como aparece no cartão" />
+              </div>
+            </div>
+            <p class="pay-note">🔐 Seus dados são criptografados e processados com segurança pelo Stripe. Cachos Naturais nunca armazena dados do cartão.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-actions">
+        <button class="form-submit-main" onclick="submitBooking()">Confirmar Agendamento</button>
+        <p class="booking-note">Entraremos em contato em até 24h para confirmar seu horário. ✦</p>
+      </div>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <div class="success-icon">✦</div>
+      <h3>Agendamento <em>solicitado!</em></h3>
+      <p>Obrigada! Recebemos sua solicitação e entraremos em contato em breve pelo WhatsApp para confirmar seu horário.<br><br>Até breve, <strong style="color:var(--gold)">Mônica Santos ✦</strong></p>
+      <br>
+      <a href="https://wa.me/5511960747406?text=Olá%20Mônica!%20Acabei%20de%20fazer%20meu%20agendamento%20pelo%20site." target="_blank" class="btn-primary" style="display:inline-block;text-decoration:none;margin-top:0.5rem;">Confirmar pelo WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Cachos Naturais</div>
+  <p class="footer-tagline">Sua beleza, nossa paixão</p>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/monicasantoscachos" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://wa.me/5511960747406" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+  <div class="footer-links">
+    <a href="#home">Início</a><a href="#about">Sobre</a><a href="#services">Serviços</a>
+    <a href="#instagram">Instagram</a><a href="#testimonials">Depoimentos</a><a href="#booking">Agendamento</a>
+  </div>
+  <p class="footer-copy">© 2025 Cachos Naturais — Mônica Santos. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+// Fade-in on scroll
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// Payment toggle
+function togglePayment() {
+  const panel = document.getElementById('payment-panel');
+  const arrow = document.getElementById('toggle-arrow');
+  panel.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// Amount selection
+function selectAmount(btn, amount) {
+  document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Card number formatting
+function formatCard(el) {
+  let v = el.value.replace(/\D/g, '').substring(0, 16);
+  el.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+
+// Expiry formatting
+function formatExpiry(el) {
+  let v = el.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 3) v = v.substring(0, 2) + ' / ' + v.substring(2);
+  el.value = v;
+}
+
+// Form submit
+function submitBooking() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) {
+    document.getElementById('f-name').focus();
+    document.getElementById('f-name').style.borderColor = 'var(--gold)';
+    return;
+  }
+  document.getElementById('booking-form').style.display = 'none';
+  document.getElementById('success-msg').classList.add('show');
+}
+</script>
+</body>
+</html>
