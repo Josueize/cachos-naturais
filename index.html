@@ -35,9 +35,11 @@
   .hero-bg-lines { position: absolute; inset: 0; pointer-events: none; background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px), repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px); }
   .hero-accent { position: absolute; top: 10%; right: 8%; width: 300px; height: 300px; border-radius: 50%; border: 0.5px solid rgba(201,168,76,0.12); }
   .hero-accent2 { position: absolute; bottom: 15%; left: 5%; width: 180px; height: 180px; border-radius: 50%; border: 0.5px solid rgba(201,168,76,0.08); }
-  .hero-content { text-align: center; position: relative; z-index: 2; padding: 2rem; }
-  .hero-profile { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-  .hero-profile-img { width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; object-position: top; box-shadow: 0 0 30px rgba(201,168,76,0.2); flex-shrink: 0; }
+  .hero-content { text-align: center; position: relative; z-index: 2; padding: 2rem; width: 100%; }
+  .hero-inner { display: flex; align-items: center; justify-content: center; gap: 4rem; max-width: 900px; margin: 0 auto; }
+  .hero-left { text-align: left; }
+  .hero-profile-img { width: 280px; height: 280px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; object-position: top; box-shadow: 0 0 60px rgba(201,168,76,0.15); flex-shrink: 0; }
+  @media (max-width: 700px) { .hero-inner { flex-direction: column; text-align: center; } .hero-left { text-align: center; } .hero-profile-img { width: 180px; height: 180px; } }
   .hero-eyebrow { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
   .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 300; line-height: 0.95; color: var(--white); }
   .hero-title em { font-style: italic; color: var(--gold); }
@@ -209,19 +211,19 @@
   <div class="hero-accent"></div>
   <div class="hero-accent2"></div>
   <div class="hero-content fade-in visible">
-    <div class="hero-profile">
-      <img src="assets/images/monica-nav.jpg" alt="Mônica Santos" class="hero-profile-img" />
-      <div style="text-align:left;">
+    <div class="hero-inner">
+      <div class="hero-left">
         <p class="hero-eyebrow">Salão de Beleza Premium</p>
         <h1 class="hero-title">Cachos<br><em>Naturais</em></h1>
-        <p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:0.5rem;">Mônica Santos</p>
+        <p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:0.5rem;margin-bottom:1rem;">Mônica Santos</p>
+        <div class="hero-divider" style="margin:1rem 0;"></div>
+        <p class="hero-subtitle" style="text-align:left;">A arte de realçar sua beleza única</p>
+        <div class="hero-btns" style="justify-content:flex-start;">
+          <a class="btn-primary" href="https://wa.me/5511960747406?text=Olá!%20Gostaria%20de%20agendar%20um%20horário." target="_blank">Agendar via WhatsApp</a>
+          <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Ver Serviços</button>
+        </div>
       </div>
-    </div>
-    <div class="hero-divider"></div>
-    <p class="hero-subtitle">A arte de realçar sua beleza única</p>
-    <div class="hero-btns">
-      <a class="btn-primary" href="https://wa.me/5511960747406?text=Olá!%20Gostaria%20de%20agendar%20um%20horário." target="_blank">Agendar via WhatsApp</a>
-      <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Ver Serviços</button>
+      <img src="assets/images/monica-nav.jpg" alt="Mônica Santos" class="hero-profile-img" />
     </div>
   </div>
 </section>
