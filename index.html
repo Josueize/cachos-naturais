@@ -70,10 +70,7 @@
   .stat-lbl { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.3rem; }
 
   #services { background: var(--black); }
-  .services-wrapper { display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; max-width: 1200px; margin: 0 auto; }
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5px; }
-  .services-side-img { width: 100%; height: 100%; min-height: 500px; object-fit: cover; border: 0.5px solid rgba(201,168,76,0.2); }
-  @media (max-width: 900px) { .services-wrapper { grid-template-columns: 1fr; } .services-side-img { min-height: 250px; } }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5px; max-width: 1000px; margin: 0 auto; }
   .service-card { background: var(--black-soft); padding: 2.5rem 2rem; border: 0.5px solid rgba(201,168,76,0.08); transition: border-color 0.3s, background 0.3s; position: relative; overflow: hidden; }
   .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
   .service-card:hover::before { transform: scaleX(1); }
@@ -263,16 +260,13 @@
     <h2 class="section-title">Nossos <em>Serviços</em></h2>
     <div class="gold-line" style="margin: 0 auto;"></div>
   </div>
-  <div class="services-wrapper">
-    <div class="services-grid">
+  <div class="services-grid">
     <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Corte Especializado</div><div class="service-desc">Corte personalizado para realçar o volume e formato dos seus cachos.</div><div class="service-price">A partir de R$ 120</div></div>
     <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Hidratação Profunda</div><div class="service-desc">Tratamento intensivo com produtos naturais para restaurar o brilho e maciez.</div><div class="service-price">A partir de R$ 180</div></div>
     <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Coloração</div><div class="service-desc">Coloração sofisticada com técnicas que preservam a saúde dos fios.</div><div class="service-price">A partir de R$ 250</div></div>
     <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Cronograma Capilar</div><div class="service-desc">Programa completo de nutrição, hidratação e reconstrução para seus cabelos.</div><div class="service-price">A partir de R$ 220</div></div>
     <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Penteados</div><div class="service-desc">Penteados elegantes para eventos especiais, do casual ao sofisticado.</div><div class="service-price">A partir de R$ 150</div></div>
     <div class="service-card fade-in"><div class="service-icon">✦</div><div class="service-name">Alisamento Natural</div><div class="service-desc">Técnicas que definem e suavizam sem agredir a estrutura capilar.</div><div class="service-price">A partir de R$ 190</div></div>
-    </div>
-    <img src="assets/images/services-bg.jpg" alt="Cachos Naturais — Serviços" class="services-side-img fade-in" />
   </div>
 </section>
 
