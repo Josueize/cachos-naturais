@@ -29,6 +29,7 @@
   .nav-links a:hover { color: var(--gold); }
   .nav-cta { background: transparent; border: 0.5px solid var(--gold); color: var(--gold); padding: 0.5rem 1.4rem; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .nav-cta:hover { background: var(--gold); color: var(--black); }
+  .nav-avatar { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--gold); object-fit: cover; object-position: center; display: block; flex-shrink: 0; }
 
   .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--black); }
   .hero-bg-lines { position: absolute; inset: 0; pointer-events: none; background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px), repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px); }
@@ -191,7 +192,10 @@
     <li><a href="#testimonials">Depoimentos</a></li>
     <li><a href="#booking">Agendar</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Agendar</button>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Agendar</button>
+    <img src="assets/images/monica-nav.jpg" alt="Mônica Santos" class="nav-avatar" />
+  </div>
 </nav>
 
 <!-- WHATSAPP FLOAT BUTTON -->
