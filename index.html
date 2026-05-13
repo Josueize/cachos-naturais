@@ -53,8 +53,12 @@
   .gold-line { width: 50px; height: 0.5px; background: var(--gold); margin-bottom: 2.5rem; }
 
   #about { background: var(--black-soft); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1000px; margin: 0 auto; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; max-width: 1000px; margin: 0 auto; }
   .about-text p { color: var(--text-muted); font-size: 13px; line-height: 2; margin-bottom: 1rem; }
+  .about-right { display: flex; flex-direction: column; gap: 2rem; }
+  .monica-photo-wrap { position: relative; }
+  .monica-photo { width: 100%; max-height: 420px; object-fit: cover; object-position: top; border: 0.5px solid rgba(201,168,76,0.2); display: block; }
+  .monica-badge { position: absolute; bottom: 0; left: 0; background: rgba(10,10,10,0.85); color: var(--gold); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.6rem 1.2rem; border-top: 0.5px solid rgba(201,168,76,0.3); }
   .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   .stat-card { border: 0.5px solid rgba(201,168,76,0.2); padding: 1.5rem; text-align: center; }
   .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--gold); font-weight: 300; }
@@ -222,11 +226,17 @@
       <p>No Cachos Naturais, acreditamos que cada fio conta uma história. Especialistas em cabelos cacheados, ondulados e crespos, oferecemos tratamentos personalizados que respeitam e celebram a textura natural dos seus cabelos.</p>
       <p>Nosso ambiente sofisticado e acolhedor foi criado para que você se sinta única e poderosa a cada visita.</p>
     </div>
-    <div class="about-stats fade-in">
-      <div class="stat-card"><div class="stat-num">14+</div><div class="stat-lbl">Anos de experiência</div></div>
-      <div class="stat-card"><div class="stat-num">2k</div><div class="stat-lbl">Clientes felizes</div></div>
-      <div class="stat-card"><div class="stat-num">15</div><div class="stat-lbl">Especialistas</div></div>
-      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Produtos naturais</div></div>
+    <div class="about-right fade-in">
+      <div class="monica-photo-wrap">
+        <img src="assets/images/monica.jpg" alt="Mônica Santos — Cachos Naturais" class="monica-photo" />
+        <div class="monica-badge">Mônica Santos</div>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card"><div class="stat-num">14+</div><div class="stat-lbl">Anos de experiência</div></div>
+        <div class="stat-card"><div class="stat-num">2k</div><div class="stat-lbl">Clientes felizes</div></div>
+        <div class="stat-card"><div class="stat-num">15</div><div class="stat-lbl">Especialistas</div></div>
+        <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Produtos naturais</div></div>
+      </div>
     </div>
   </div>
 </section>
