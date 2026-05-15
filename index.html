@@ -517,7 +517,7 @@ async function processPayment() {
 
   try {
     // Create payment intent on backend
-    const res = await fetch('http://localhost:3000/create-payment-intent', {
+    const res = await fetch('https://cachos-naturais-production.up.railway.app/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
