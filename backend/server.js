@@ -13,16 +13,22 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-  origin: [
-    'https://cachosmoninaturais.com.br',
-    'https://www.cachosmoninaturais.com.br',
-    'https://cachos-naturais.vercel.app',
-    'http://localhost:3000',
-    'http://127.0.0.1:5500'
-  ],
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      'https://cachosmoninaturais.com.br',
+      'https://www.cachosmoninaturais.com.br',
+      'https://cachos-naturais.vercel.app',
+      'http://localhost:3000',
+      'http://127.0.0.1:5500'
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all for now
+    }
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
 }));
 app.options('*', cors());
 app.use(express.json());
