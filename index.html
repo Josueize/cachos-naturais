@@ -475,7 +475,7 @@ const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIn
 document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
 // Stripe setup
-const stripe = Stripe('pk_test_51TVan8LctxO2C5QagktlqwsA0H2qKO4kEU9m0NNfFoCHQ9Ufj4N4vwnBUIUTawgoPuIkrZTqdSLEsHtdHY9t3K5d00UmucMTKd');
+const stripe = Stripe('pk_live_51TVamjPzrIyewkN41NTFxFKE8B0QTuXzo76Wz9g8IPEpYGCfFHdY90Fpz4POzZIvVTvCvz1S5h01VDO0Ap2pXj9t009W3xqjv3');
 const elements = stripe.elements();
 const cardElement = elements.create('card', {
   style: {
