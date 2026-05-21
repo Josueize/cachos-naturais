@@ -142,4 +142,15 @@ In Stripe Dashboard → Webhooks → Add endpoint:
 
 ---
 
-*Built with ✦ for Cachos Naturais © 2025*
+*Built with ✦ for Cachos Naturais © 2026*
+
+---
+
+## 👨‍💻 Developer
+
+**Izehiuwa Igiebor Omogiate (Joshua)**
+Full Stack Developer
+
+- 🐙 GitHub: [github.com/Josueize](https://github.com/Josueize)
+- 💼 LinkedIn: [izehiuwa-igiebor](https://www.linkedin.com/in/izehiuwa-igiebor-b9753919b/)
+- 📧 Email: [izategbese1@gmail.com](mailto:izategbese1@gmail.com)
