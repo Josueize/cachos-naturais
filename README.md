@@ -2,133 +2,73 @@
 
 Luxury hair salon website for **Mônica Santos** — Cachos Naturais.
 
+🌐 **Live Website:** [cachosmoninaturais.com.br](https://cachosmoninaturais.com.br)
+
 ---
 
 ## 📁 Project Structure
 
 ```
 cachos-naturais/
-├── index.html              ← Main website (open this in a browser)
+├── index.html              ← Main website
+├── sitemap.xml             ← Google SEO sitemap
+├── favicon.ico             ← Browser tab icon
+├── favicon-16x16.png
+├── favicon-32x32.png
+├── apple-touch-icon.png
+├── android-chrome-192x192.png
+├── android-chrome-512x512.png
 ├── assets/
-│   ├── images/             ← Add salon photos here
-│   │   └── gallery/        ← Instagram-style gallery photos
-│   ├── css/
-│   │   └── style.css       ← Separate CSS (optional)
-│   └── js/
-│       └── main.js         ← Separate JS (optional)
+│   └── images/
+│       ├── monica.jpg          ← Mônica's photo (About section)
+│       ├── monica-nav.jpg      ← Mônica's photo (Hero section)
+│       └── gallery/            ← Client gallery photos
+│           ├── gallery-1.jpg
+│           ├── gallery-2.jpg
+│           ├── gallery-3.jpg
+│           ├── gallery-4.jpg
+│           ├── gallery-5.jpg
+│           └── gallery-6.jpg
 ├── backend/
 │   ├── server.js           ← Node.js + Stripe server
-│   ├── package.json        ← Dependencies
-│   └── .env.example        ← Environment variables template
-└── README.md               ← This file
+│   ├── package.json
+│   └── .env.example
+└── README.md
 ```
 
 ---
 
-## 🚀 How to Run the Website (No backend needed)
+## ✨ Features
 
-Just open `index.html` in any browser — it works out of the box!
-
-For hosting, upload the file to any of these (free options):
-- **Netlify** → https://netlify.com (drag & drop, free)
-- **Vercel** → https://vercel.com (free)
-- **GitHub Pages** → https://pages.github.com (free)
-
----
-
-## 💳 How to Activate Stripe Payments
-
-### Step 1 — Create a Stripe Account
-Go to https://stripe.com/br and create a free account.
-
-### Step 2 — Get Your API Keys
-In the Stripe Dashboard → Developers → API Keys:
-- Copy your **Publishable Key** (`pk_live_...`)
-- Copy your **Secret Key** (`sk_live_...`)
-
-### Step 3 — Set Up the Backend
-
-```bash
-# Go to the backend folder
-cd backend
-
-# Install dependencies
-npm install
-
-# Create your .env file
-cp .env.example .env
-
-# Edit .env and paste your Stripe keys
-nano .env  # or open with any text editor
-```
-
-### Step 4 — Start the Server
-
-```bash
-# Production
-npm start
-
-# Development (auto-restart on changes)
-npm run dev
-```
-
-Server runs at: `http://localhost:3000`
-
-### Step 5 — Connect Frontend to Backend
-
-In `index.html`, find the Stripe mock form section and replace it with:
-
-```html
-<!-- Load Stripe.js -->
-<script src="https://js.stripe.com/v3/"></script>
-
-<script>
-const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
-
-async function processPayment(amount) {
-  // Create Payment Intent on your backend
-  const response = await fetch('http://localhost:3000/create-payment-intent', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      amount,
-      customerName: document.getElementById('f-name').value,
-      service: document.getElementById('f-service').value,
-      date: document.getElementById('f-date').value,
-    }),
-  });
-
-  const { clientSecret } = await response.json();
-
-  // Confirm payment with Stripe Elements
-  const result = await stripe.confirmCardPayment(clientSecret, {
-    payment_method: {
-      card: cardElement, // Stripe Elements card input
-    },
-  });
-
-  if (result.error) {
-    alert('Erro no pagamento: ' + result.error.message);
-  } else {
-    submitBooking(); // Show success message
-  }
-}
-</script>
-```
-
-### Step 6 — Set Up Webhook (for payment confirmation)
-
-In Stripe Dashboard → Webhooks → Add endpoint:
-- URL: `https://yourdomain.com/webhook`
-- Events: `payment_intent.succeeded`, `payment_intent.payment_failed`
-- Copy the **Webhook Secret** → paste in `.env`
+- 🖤 Luxury gold & black design
+- 📱 Fully responsive (mobile + desktop)
+- 👩 Mônica's profile photo in hero section
+- 📸 6 real client gallery photos
+- 💇 6 services with prices
+- 💬 WhatsApp booking button
+- 📷 Instagram gallery linked
+- 💳 PIX payment (optional deposit)
+- 📅 Booking form
+- ⭐ Client testimonials
+- 🔍 SEO optimized for Google
 
 ---
 
-## 📱 Contact & Social
+## 🚀 Deployment
 
-- **WhatsApp:** +55 11 96074-7406
-- **Instagram:** [@monicasantoscachos](https://www.instagram.com/monicasantoscachos)
+- **Frontend:** Vercel → [cachosmoninaturais.com.br](https://cachosmoninaturais.com.br)
+- **Backend:** Railway → [cachos-naturais-production.up.railway.app](https://cachos-naturais-production.up.railway.app)
+- **Domain:** Registro.br
+- **Repository:** [github.com/Josueize/cachos-naturais](https://github.com/Josueize/cachos-naturais)
+
+---
+
+## 💳 PIX Payment
+
+The website includes an optional PIX deposit system:
+- Client selects deposit amount (R$50 / R$100 / R$150)
+- PIX key is displayed with a copy button
+- Client sends receipt via WhatsApp to confirm booking
 
 ---
 
@@ -137,12 +77,17 @@ In Stripe Dashboard → Webhooks → Add endpoint:
 - **Frontend:** HTML5, CSS3, Vanilla JavaScript
 - **Fonts:** Cormorant Garamond + Montserrat (Google Fonts)
 - **Backend:** Node.js + Express
-- **Payments:** Stripe API
-- **Hosting:** Any static host (Netlify recommended)
+- **Hosting:** Vercel (frontend) + Railway (backend)
+- **Domain:** Registro.br (.com.br)
+- **SEO:** Google Search Console + Sitemap
 
 ---
 
-*Built with ✦ for Cachos Naturais © 2026*
+## 📱 Client Contact
+
+- **WhatsApp:** +55 11 96074-7406
+- **Instagram:** [@monicasantoscachos](https://www.instagram.com/monicasantoscachos)
+- **Website:** [cachosmoninaturais.com.br](https://cachosmoninaturais.com.br)
 
 ---
 
@@ -154,3 +99,7 @@ Full Stack Developer
 - 🐙 GitHub: [github.com/Josueize](https://github.com/Josueize)
 - 💼 LinkedIn: [izehiuwa-igiebor](https://www.linkedin.com/in/izehiuwa-igiebor-b9753919b/)
 - 📧 Email: [izategbese1@gmail.com](mailto:izategbese1@gmail.com)
+
+---
+
+*Built with ✦ for Cachos Naturais © 2026*
