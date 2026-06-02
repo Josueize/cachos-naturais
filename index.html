@@ -117,6 +117,20 @@
   .amount-btn .amount-label { display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: inherit; margin-bottom: 0.2rem; }
   .amount-btn .amount-value { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
   .stripe-form-wrap { background: rgba(201,168,76,0.03); border: 0.5px solid rgba(201,168,76,0.12); padding: 1.2rem; }
+  .pix-wrap { background: rgba(201,168,76,0.03); border: 0.5px solid rgba(201,168,76,0.12); padding: 1.2rem; }
+  .pix-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .pix-instruction { font-size: 12px; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.8; }
+  .pix-key-wrap { display: flex; gap: 0.5rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap; }
+  .pix-key { background: rgba(201,168,76,0.08); border: 0.5px solid rgba(201,168,76,0.3); color: var(--gold); padding: 0.8rem 1rem; font-size: 12px; letter-spacing: 0.05em; flex: 1; word-break: break-all; }
+  .pix-copy-btn { background: var(--gold); color: var(--black); border: none; padding: 0.8rem 1.2rem; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background 0.3s; }
+  .pix-copy-btn:hover { background: var(--gold-light); }
+  .pix-info { border: 0.5px solid rgba(201,168,76,0.1); margin-bottom: 1rem; }
+  .pix-info-row { display: flex; justify-content: space-between; padding: 0.6rem 1rem; font-size: 12px; border-bottom: 0.5px solid rgba(201,168,76,0.08); }
+  .pix-info-row:last-child { border-bottom: none; }
+  .pix-info-row span:first-child { color: var(--text-muted); }
+  .pix-info-row span:last-child { color: var(--white); font-weight: 500; }
+  .pix-whatsapp-btn { display: block; text-align: center; background: #25D366; color: #fff; padding: 0.9rem; font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; margin-top: 1rem; transition: background 0.3s; }
+  .pix-whatsapp-btn:hover { background: #1ebe5d; }
   .stripe-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
   .stripe-label-text { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
   .stripe-powered { margin-left: auto; font-size: 10px; color: rgba(153,153,153,0.5); }
@@ -387,7 +401,7 @@
         <textarea id="f-notes" placeholder="Conte-nos mais sobre seus cabelos ou preferências..."></textarea>
       </div>
 
-      <!-- OPTIONAL PAYMENT TOGGLE -->
+      <!-- OPTIONAL PIX PAYMENT TOGGLE -->
       <div class="payment-toggle-wrap">
         <div class="payment-toggle-header" onclick="togglePayment()">
           <div class="payment-toggle-left">
@@ -396,8 +410,8 @@
               <line x1="1" y1="10" x2="23" y2="10"></line>
             </svg>
             <div>
-              <div class="payment-toggle-title">Pagar depósito antecipado</div>
-              <div class="payment-toggle-sub">Garanta seu horário com pagamento seguro via Stripe</div>
+              <div class="payment-toggle-title">Pagar depósito via PIX</div>
+              <div class="payment-toggle-sub">Garanta seu horário com um depósito antecipado</div>
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:0.8rem;">
@@ -408,32 +422,38 @@
         <div class="payment-panel" id="payment-panel">
           <div class="payment-panel-inner">
             <p style="font-size:11px;color:var(--text-muted);margin-bottom:1.2rem;line-height:1.8;">
-              O agendamento é confirmado <strong style="color:var(--white)">com ou sem pagamento</strong>. O depósito é opcional e será descontado no dia do atendimento.
+              O agendamento é confirmado <strong style="color:var(--white)">com ou sem pagamento</strong>. O depósito é opcional e será descontado do valor total no dia do atendimento.
             </p>
+
+            <!-- AMOUNT OPTIONS -->
             <div class="amount-options">
-              <button class="amount-btn active" onclick="selectAmount(this, 50)"><span class="amount-label">Básico</span><span class="amount-value">R$50</span></button>
-              <button class="amount-btn" onclick="selectAmount(this, 100)"><span class="amount-label">Padrão</span><span class="amount-value">R$100</span></button>
-              <button class="amount-btn" onclick="selectAmount(this, 150)"><span class="amount-label">Completo</span><span class="amount-value">R$150</span></button>
+              <button class="amount-btn active" onclick="selectAmount(this, 'R$50')"><span class="amount-label">Básico</span><span class="amount-value">R$50</span></button>
+              <button class="amount-btn" onclick="selectAmount(this, 'R$100')"><span class="amount-label">Padrão</span><span class="amount-value">R$100</span></button>
+              <button class="amount-btn" onclick="selectAmount(this, 'R$150')"><span class="amount-label">Completo</span><span class="amount-value">R$150</span></button>
             </div>
-            <div class="stripe-form-wrap">
-              <div class="stripe-header">
+
+            <!-- PIX DETAILS -->
+            <div class="pix-wrap">
+              <div class="pix-header">
                 <span>🔒</span>
-                <span class="stripe-label-text">Pagamento seguro</span>
-                <span class="stripe-powered">Powered by <span>stripe</span></span>
+                <span class="stripe-label-text">Pagamento seguro via PIX</span>
               </div>
-              <div class="card-icons">
-                <div class="card-icon">VISA</div>
-                <div class="card-icon">MC</div>
-                <div class="card-icon">PIX</div>
+              <div class="pix-instruction">Copie a chave PIX abaixo e faça o pagamento pelo seu banco:</div>
+              <div class="pix-key-wrap">
+                <div class="pix-key" id="pix-key-display">7a8c1aa5-ce35-46c9-aa39-cf4b1ded676e</div>
+                <button class="pix-copy-btn" onclick="copyPix()">Copiar chave</button>
               </div>
-              <!-- Real Stripe Elements mount point -->
-              <div id="card-element" style="background:rgba(201,168,76,0.04);border:0.5px solid rgba(201,168,76,0.2);padding:0.9rem 1rem;margin-bottom:0.8rem;"></div>
-              <div id="card-errors" style="color:#ff6b6b;font-size:11px;margin-bottom:0.8rem;"></div>
-              <button id="pay-btn" onclick="processPayment()" style="width:100%;background:var(--gold);color:var(--black);padding:0.9rem;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.3s;">
-                Pagar Depósito
-              </button>
+              <div id="pix-copied" style="display:none;font-size:11px;color:var(--gold);text-align:center;margin-top:0.5rem;">✅ Chave copiada!</div>
+              <div class="pix-info">
+                <div class="pix-info-row"><span>Beneficiário:</span><span>Mônica Santos</span></div>
+                <div class="pix-info-row"><span>Tipo de chave:</span><span>Chave aleatória</span></div>
+                <div class="pix-info-row"><span>Valor sugerido:</span><span id="pix-amount-display">R$50</span></div>
+              </div>
+              <p class="pay-note">⚠️ Após o pagamento, envie o comprovante pelo WhatsApp para confirmar seu agendamento.</p>
+              <a href="https://wa.me/5511960747406?text=Olá%20Mônica!%20Fiz%20o%20pagamento%20do%20depósito%20via%20PIX%20e%20gostaria%20de%20confirmar%20meu%20agendamento." target="_blank" class="pix-whatsapp-btn">
+                📱 Enviar comprovante pelo WhatsApp
+              </a>
             </div>
-            <p class="pay-note">🔐 Dados criptografados e processados com segurança pelo Stripe.</p>
           </div>
         </div>
       </div>
@@ -473,30 +493,7 @@
   <p class="footer-copy">© 2026 Cachos Naturais — Mônica Santos. Todos os direitos reservados.</p>
 </footer>
 
-<script src="https://js.stripe.com/v3/"></script>
 <script>
-// Fade-in on scroll
-const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-
-// Stripe setup
-const stripe = Stripe('pk_live_51TVamjPzrIyewkN41NTFxFKE8B0QTuXzo76Wz9g8IPEpYGCfFHdY90Fpz4POzZIvVTvCvz1S5h01VDO0Ap2pXj9t009W3xqjv3');
-const elements = stripe.elements();
-const cardElement = elements.create('card', {
-  style: {
-    base: {
-      color: '#FAF7F0',
-      fontFamily: 'Montserrat, sans-serif',
-      fontSize: '13px',
-      '::placeholder': { color: '#999' },
-    },
-    invalid: { color: '#ff6b6b' },
-  }
-});
-cardElement.mount('#card-element');
-cardElement.on('change', (e) => {
-  document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-});
 
 // Payment toggle
 function togglePayment() {
@@ -507,50 +504,19 @@ function togglePayment() {
 }
 
 // Amount selection
-let selectedAmount = 50;
 function selectAmount(btn, amount) {
   document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  selectedAmount = amount;
+  document.getElementById('pix-amount-display').textContent = amount;
 }
 
-// Process real Stripe payment
-async function processPayment() {
-  const btn = document.getElementById('pay-btn');
-  btn.textContent = 'Processando...';
-  btn.disabled = true;
-
-  try {
-    // Create payment intent on backend
-    const res = await fetch('https://cachos-naturais-production.up.railway.app/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        amount: selectedAmount,
-        customerName: document.getElementById('f-name').value,
-        service: document.getElementById('f-service').value,
-        date: document.getElementById('f-date').value,
-      }),
-    });
-    const { clientSecret } = await res.json();
-
-    // Confirm payment with Stripe
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: { card: cardElement }
-    });
-
-    if (result.error) {
-      document.getElementById('card-errors').textContent = result.error.message;
-      btn.textContent = 'Pagar Depósito';
-      btn.disabled = false;
-    } else {
-      submitBooking(); // Show success message
-    }
-  } catch (err) {
-    document.getElementById('card-errors').textContent = 'Erro ao processar pagamento. Tente novamente.';
-    btn.textContent = 'Pagar Depósito';
-    btn.disabled = false;
-  }
+// Copy PIX key
+function copyPix() {
+  const key = '7a8c1aa5-ce35-46c9-aa39-cf4b1ded676e';
+  navigator.clipboard.writeText(key).then(() => {
+    document.getElementById('pix-copied').style.display = 'block';
+    setTimeout(() => { document.getElementById('pix-copied').style.display = 'none'; }, 3000);
+  });
 }
 
 // Form submit
