@@ -1,19 +1,15 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "**/*",
+      "use": "@vercel/static"
+    }
   ],
-  "headers": [
+  "routes": [
     {
-      "source": "/favicon.ico",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
-    },
-    {
-      "source": "/favicon-32x32.png",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
-    },
-    {
-      "source": "/favicon-16x16.png",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }
