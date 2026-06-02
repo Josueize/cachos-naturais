@@ -93,7 +93,7 @@ The website includes an optional PIX deposit system:
 
 ## 👨‍💻 Developer
 
-**Izehiuwa Igiebor Omogiate (Joshua)**
+**Izehiuwa Igiebor Omogiate **
 Full Stack Developer
 
 - 🐙 GitHub: [github.com/Josueize](https://github.com/Josueize)
